@@ -1,0 +1,430 @@
+/* General styles */
+:root {
+    --main-text-color: #333;
+    --main-bg-color: #f4f4f4;
+    --secondary-bg-color: #fff;
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --light-gray: #f9f9f9;
+    --border-color: #ddd;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--main-text-color);
+    background-color: var(--main-bg-color);
+}
+
+#site-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--secondary-bg-color);
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.entry-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.entry-title {
+    font-size: 1.5em;
+    color: #2c3e50;
+}
+
+/* Main image and zoom */
+.tableau-all {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.tableau-main-image {
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.image-magnifier-container {
+    display: flex;
+    align-items: flex-start;
+    border: 0;
+}
+
+.main-image {
+    max-height: 80vh;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    display: block;
+}
+
+.status-circle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    z-index: 1001;
+}
+
+/* Magnifier Frame Styles */
+.magnifier-frame {
+    width: 100px;
+    height: 120px;
+    position: absolute;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px black;
+    cursor: none;
+    display: none;
+    z-index: 1000;
+    pointer-events: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Zoomed Image Container Styles */
+.zoomed-image-container {
+    width: 40%;
+    max-height: 330px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    display: none;
+    z-index: 1000;
+    pointer-events: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    background-color: var(--light-gray);
+}
+
+.zoomed-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    transition: left 0.1s, top 0.1s;
+    object-fit: cover;
+}
+
+.zoomed-image-container img.zoomed-image {
+    max-width: none;
+}
+
+/* Tableau details */
+.tableau-details-wrapper {
+    margin-bottom: 30px;
+    border-radius: 5px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tableau-details {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--light-gray);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.tableau-details p {
+    margin: 0;
+}
+
+.tableau-details strong {
+    display: block;
+    font-size: 0.8em;
+    color: #7f8c8d;
+    margin-bottom: 5px;
+}
+
+/* Status styling */
+.status-disponible, .status-vendu {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.status-disponible {
+    background-color: var(--success-color);
+    color: var(--secondary-bg-color);
+}
+
+.status-vendu {
+    background-color: var(--danger-color);
+    color: var(--secondary-bg-color);
+}
+
+/* Tableau description */
+.tableau-description {
+    margin-bottom: 30px;
+    line-height: 1.8;
+}
+
+/* Additional images */
+.tableau-additional-images {
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.tableau-additional-images h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.tableau-image {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+}
+
+.tableau-image img {
+    max-width: 150px;
+    height: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 3px;
+    transition: transform 0.3s ease;
+}
+
+.tableau-image img:hover {
+    transform: scale(1.05);
+}
+
+.image-caption {
+    font-size: 0.9em;
+    margin-top: 5px;
+    color: #7f8c8d;
+}
+
+/* Categories and tags */
+.tableau-categories-tags {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.cat-links a, .tags-links a {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 3px 8px;
+    background-color: var(--primary-color);
+    color: var(--secondary-bg-color);
+    border-radius: 3px;
+    font-size: 0.9em;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.cat-links a:hover, .tags-links a:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Full screen */
+.fullscreen-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    font-size: 24px;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.fullscreen-icon:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+#main-tableau-image:-webkit-full-screen,
+#main-tableau-image:-moz-full-screen,
+#main-tableau-image:-ms-fullscreen,
+#main-tableau-image:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    background-color: white;
+    cursor: zoom-out;
+}
+
+/* Navigation */
+.tableau-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.nav-button {
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+    background-color: var(--secondary-color);
+}
+
+.prev-tableau {
+    margin-right: auto;
+}
+
+.next-tableau {
+    margin-left: auto;
+}
+
+/* Filter buttons */
+.tableau-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--light-gray);
+    border-radius: 5px;
+}
+
+.filter-button, #clear-filters {
+    background-color: var(--secondary-bg-color);
+    color: var(--main-text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover, #clear-filters:hover {
+    background-color: #e0e0e0;
+}
+
+.filter-button.active {
+    background-color: var(--success-color);
+    color: var(--secondary-bg-color);
+    border-color: #45a049;
+}
+
+.filter-button .active-text {
+    display: none;
+}
+
+.filter-button.active .button-text {
+    display: none;
+}
+
+.filter-button.active .active-text {
+    display: inline;
+}
+/* Existing filter styles remain unchanged */
+
+/* Filter modal styles */
+.filter-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.filter-modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+.apply-filters-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+#open-filter-modal {
+    display: none;
+}
+.filter-modal {
+    display: none;
+}
+
+#open-filter-modal {
+    display: none;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    .desktop-filters {
+        display: none;
+    }
+
+    #open-filter-modal {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .filter-modal-content {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        max-width: none;
+        overflow-y: auto;
+    }
+
+    .apply-filters-button {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 0;
+    }
+
+    /* Ensure modal is hidden by default on mobile */
+    .filter-modal {
+        display: none;
+    }
+    
+    .image-magnifier-container {
+        height: auto;
+    }
+    .tableau-all {
+        flex-direction: column;
+    }
+    .tableau-main-image,
+    .tableau-details-wrapper {
+        width: 100%;
+    }
+    .magnifier-frame,
+    .zoomed-image-container {
+        display: none;
+    }
+    .card {
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,119 @@
+/* 
+Theme Name: Hello Elementor Child
+Theme URI: https://github.com/elementor/hello-theme-child/
+Description: Hello Elementor Child is a child theme of Hello Elementor, created by Elementor team
+Author: Elementor Team
+Author URI: https://elementor.com/
+Template: hello-elementor
+Version: 2.0.0
+Text Domain: hello-elementor-child
+License: GNU General Public License v3 or later.
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, featured-images, rtl-language-support, threaded-comments, translation-ready
+*/
+
+/* Add your custom styles here */
+.post-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Adjust spacing between cards */
+}
+
+.card {
+    overflow: hidden; /* Ensure overlay doesn't overflow the card */
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent grey overlay */
+    color: white; /* Text color */
+    display: flex;
+    align-items: center; /* Center the title vertically */
+    justify-content: center; /* Center the title horizontally */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.card:hover .overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.card h3 {
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center the title */
+}
+.post-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px; /* Adjust for spacing */
+}
+
+.card {
+    margin: 10px; /* Space between cards */
+    position: relative;
+    overflow: hidden; /* Ensure overlay doesn't overflow the card */
+    background-color: #fff; /* Optional: background color for cards */
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: shadow for depth */
+    width:20%;
+}
+
+.card img {
+    display: block;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent grey overlay */
+    color: white; /* Text color */
+    display: flex;
+    align-items: center; /* Center the title vertically */
+    justify-content: center; /* Center the title horizontally */
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.3s ease; /* Smooth transition */
+}
+
+.card:hover .overlay {
+    opacity: 1; /* Show overlay on hover */
+}
+
+.card h3 {
+    margin: 0; /* Remove default margin */
+    text-align: center; /* Center the title */
+}
+.tableau-filters {
+    margin-bottom: 20px; /* Space between filters and grid */
+    padding: 10px;       /* Optional: Add padding for aesthetics */
+    background-color: #f9f9f9; /* Optional: Background color for visibility */
+    border-radius: 5px;  /* Optional: Rounded corners */
+}
+
+#tableau-container {
+    position: relative; /* Ensure the container is positioned relative to its parent */
+}
