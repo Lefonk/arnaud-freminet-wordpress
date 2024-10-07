@@ -32,47 +32,21 @@ jQuery(document).ready(function($) {
 
         let imagesLoaded = 0;
 
-        // Wait for the zoomed image to load
-        zoomedImage.on('load', function() {
-            imagesLoaded++;
-            if (imagesLoaded === 2) {
-                initializeMagnifier();
-            }
-        }).on('error', function() {
-            console.error("Failed to load zoomed image. Please check the data-full-image attribute.");
-            $(this).remove();
-        });
-
-        // Ensure the main image is loaded before continuing
-        mainImage.on('load', function() {
-            imagesLoaded++;
-            if (imagesLoaded === 2) {
-                initializeMagnifier();
-            }
-        }).each(function() {
-            if (this.complete) $(this).trigger('load');
-        });
-
         function initializeMagnifier() {
             const imageWidth = mainImage.width();
             const imageHeight = mainImage.height();
 
-            // Set the dimensions of the zoomed image based on the zoom factor
             zoomedImage.css({
                 width: imageWidth * zoomFactor,
                 height: imageHeight * zoomFactor,
                 position: 'absolute'
             });
 
-            // Proceed with the rest of the magnifier functionality
             setupMagnifierEvents();
         }
 
         function setupMagnifierEvents() {
-            // Handle mouse movement
             let isThrottled = false;
-
-            // Check if the device is mobile
             const isMobile = $(window).width() < 768;
 
             if (!isMobile) {
@@ -86,25 +60,21 @@ jQuery(document).ready(function($) {
                     }
                 });
 
-                // Show the magnifier on hover
                 mainImage.on('mouseenter', function() {
                     magnifierFrame.show();
                     zoomedContainer.show();
                 });
 
-                // Hide the magnifier when leaving the image
                 mainImage.on('mouseleave', function() {
                     magnifierFrame.hide();
                     zoomedContainer.hide();
                     tableauDetails.show();
                 });
             } else {
-                // On mobile, hide the magnifier frame and zoom container
                 magnifierFrame.hide();
                 zoomedContainer.hide();
             }
 
-            // Prevent the container from capturing mouse events
             magnifierFrame.css('pointer-events', 'none');
             zoomedContainer.css('pointer-events', 'none');
         }
@@ -166,21 +136,38 @@ jQuery(document).ready(function($) {
             magnifierFrame.show();
             zoomedContainer.show();
         }
+
+        // Image Loaded Check for Magnifier
+        zoomedImage.on('load', function() {
+            imagesLoaded++;
+            if (imagesLoaded === 2) {
+                initializeMagnifier();
+            }
+        }).on('error', function() {
+            console.error("Failed to load zoomed image. Please check the data-full-image attribute.");
+            $(this).remove();
+        });
+
+        mainImage.on('load', function() {
+            imagesLoaded++;
+            if (imagesLoaded === 2) {
+                initializeMagnifier();
+            }
+        }).each(function() {
+            if (this.complete) $(this).trigger('load');
+        });
     }
 
-    // Hide the magnifier and zoom container on smaller screens
-    function checkScreenSize() {
+    // Hide magnifier on smaller screens
+    $(window).on('load resize', function() {
         if ($(window).width() < 768) {
             magnifierFrame.hide();
             zoomedContainer.hide();
         }
-    }
-
-    // Check screen size on load and resize
-    $(window).on('load resize', checkScreenSize);
+    });
 
     const fullscreenIcon = $('#fullscreen-icon');
-    
+
     fullscreenIcon.on('click', function() {
         toggleFullScreen();
     });
@@ -211,13 +198,13 @@ jQuery(document).ready(function($) {
             fullscreenIcon.html('<span>&#x26F6;</span>'); // Change icon back to enter fullscreen
         }
     }
-
+    
     // Listen for fullscreen change events
     document.addEventListener('fullscreenchange', onFullScreenChange);
     document.addEventListener('webkitfullscreenchange', onFullScreenChange);
     document.addEventListener('mozfullscreenchange', onFullScreenChange);
     document.addEventListener('MSFullscreenChange', onFullScreenChange);
-
+    
     function onFullScreenChange() {
         if (!document.fullscreenElement && 
             !document.webkitFullscreenElement && 
@@ -226,77 +213,4 @@ jQuery(document).ready(function($) {
             fullscreenIcon.html('<span>&#x26F6;</span>'); // Change icon back to enter fullscreen
         }
     }
-
-    // Initialize Isotope
-    var $grid = $('#tableau-container').isotope({
-        itemSelector: '.card',
-        layoutMode: 'fitRows'
-    });
-
-    var $filterModal = $('#filter-modal');
-    var $openFilterModalBtn = $('#open-filter-modal');
-    var $applyFiltersBtn = $('#apply-filters');
-
-    function applyFilters() {
-        var activeFilters = {};
-
-        $('.filter-button.active').each(function() {
-            var $button = $(this);
-            var type = $button.data('type');
-            var slug = $button.data('slug');
-            
-            if (!activeFilters[type]) {
-                activeFilters[type] = [];
-            }
-            activeFilters[type].push('.' + type + '-' + slug);
-        });
-
-        console.log('Active filters:', activeFilters);
-
-        var filterValue = '';
-        for (var type in activeFilters) {
-            if (activeFilters[type].length > 0) {
-                if (filterValue) filterValue += ', ';
-                filterValue += activeFilters[type].join(', ');
-            }
-        }
-
-        console.log('Filter value:', filterValue);
-
-        $grid.isotope({ filter: filterValue || '*' });
-        
-        console.log('Visible items:', $grid.data('isotope').filteredItems.length);
-    }
-
-    // Desktop filter functionality
-    $('.desktop-filters .filter-button').on('click', function() {
-        console.log('Desktop filter clicked:', $(this).data('type'), $(this).data('slug'));
-        $(this).toggleClass('active');
-        applyFilters();
-    });
-
-    // Mobile filter functionality
-    $('.filter-modal .filter-button').on('click', function() {
-        console.log('Mobile filter clicked:', $(this).data('type'), $(this).data('slug'));
-        $(this).toggleClass('active');
-    });
-
-    $applyFiltersBtn.on('click', function() {
-        console.log('Apply filters clicked');
-        applyFilters();
-        $filterModal.css('display', 'none');
-    });
-
-    // Open modal when clicking "Trier" button
-    $openFilterModalBtn.on('click', function() {
-        console.log('Open filter modal clicked');
-        $filterModal.css('display', 'block');
-    });
-
-    // Close modal when clicking outside of it
-    $(window).on('click', function(event) {
-        if (event.target == $filterModal[0]) {
-            $filterModal.css('display', 'none');
-        }
-    });
 });
